@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity
     private static final String LOG_TAG = MainActivity.class.getName();
 
     /** URL for earthquake data from the News dataset */
-    private static final String NEWS_REQUEST_URL = "http://content.guardianapis.com/search?api-key=3b0053ee-78fc-4459-bc15-d1cf8bd62ebd";
+    private static final String NEWS_REQUEST_URL = "https://content.guardianapis.com/search?q=debate%20AND%20NOT%20immigration&tag=politics/politics&from-date=2014-01-01&api-key=test";
 
     /**
      * Constant value for the news loader ID. We can choose any integer.
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
         // Find a reference to the {@link ListView} in the layout
         ListView newsListView = findViewById(R.id.list);
 
-        // Create a new adapter that takes an empty list of earthquakes as input
+        // Create a new adapter that takes an empty list of newses as input
         mAdapter = new NewsAdapter(this, new ArrayList<News>());
 
         // Set the adapter on the {@link ListView}
