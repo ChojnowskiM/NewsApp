@@ -9,15 +9,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-    android:text="place holder"
         android:layout_gravity="center"/>
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margins"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:text="place holder"/>
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,8 +30,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-        android:text="2018-02-02"
         android:layout_gravity="right"/>
     </LinearLayout>
+    <TextView
+        android:id="@+id/author"
+        android:layout_gravity="right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 
 </LinearLayout>

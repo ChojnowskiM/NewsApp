@@ -48,7 +48,7 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
             return null;
         }
         Log.v("background", "Background working");
-        // Perform the network request, parse the response, and extract a list of earthquakes.
+        // Perform the network request, parse the response, and extract a list of newses.
         List<News> newses = QueryUtils.fetchNewsData(mUrl);
         return newses;
     }

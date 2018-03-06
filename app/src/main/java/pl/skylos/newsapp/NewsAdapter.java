@@ -67,9 +67,15 @@ public class NewsAdapter extends ArrayAdapter<News> {
         TextView dateView = listItemView.findViewById(R.id.date);
         // Format the date string (i.e. "Mar 3, 1984")
         String date = currentNews.getDate();
-        // Display the date of the current earthquake in that TextView
+        // Display the date of the current news in that TextView
         dateView.setText(date);
 
+        TextView authorView = listItemView.findViewById(R.id.author);
+        String author = currentNews.getAuthor();
+        if (!author.equals("") && !author.equals(" ")) {
+            authorView.setVisibility(View.VISIBLE);
+            authorView.setText(author);
+        }
 
         // Return the list item view that is now showing the appropriate data
         return listItemView;

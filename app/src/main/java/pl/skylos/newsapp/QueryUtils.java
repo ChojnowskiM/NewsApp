@@ -37,6 +37,8 @@ public final class QueryUtils {
      */
     private QueryUtils() {
     }
+    private final static int READ_TIMEOUT = 10000;
+    private final static int CONNECT_TIMEOUT = 15000;
     /**
      * Query the Guardian dataset and return a list of {@link News} objects.
      */
@@ -52,7 +54,7 @@ public final class QueryUtils {
             Log.e(LOG_TAG, "Problem making the HTTP request.", e);
         }
 
-        // Extract relevant fields from the JSON response and create a list of {@link Earthquake}s
+        // Extract relevant fields from the JSON response and create a list of {@link Newses}s
         List<News> newses = extractFeatureFromJson(jsonResponse);
 
         // Return the list of {@link Newses}s
@@ -80,10 +82,10 @@ public final class QueryUtils {
 
             // Create a JSONObject from the JSON response string
             JSONObject baseJsonResponse = new JSONObject(newsJSON);
-
+            JSONObject objectResponse = baseJsonResponse.getJSONObject("response");
             // Extract the JSONArray associated with the key called "results",
             // which represents a list of results (or newses).
-            JSONArray newsArray = baseJsonResponse.getJSONArray("results");
+            JSONArray newsArray = objectResponse.getJSONArray("results");
 
             // For each news in the newsArray, create an {@link News} object
             for (int i = 0; i < newsArray.length(); i++) {
@@ -94,7 +96,6 @@ public final class QueryUtils {
                 // For a given news, extract the JSONObject associated with the
                 // key called "properties", which represents a list of all properties
                 // for that news.
-                //JSONObject properties = currentNews.getJSONObject("content");
 
                 // Extract the value for the key called "sectionName
                 String section = currentNews.getString("sectionName");
@@ -108,11 +109,13 @@ public final class QueryUtils {
                 // Extract the value for the key called "url"
                 String url = currentNews.getString("webUrl");
 
+                String author = currentNews.getString("references");
+
                 // Create a new {@link News} object with the sectionName, title, time,
                 // and url from the JSON response.
-                News news = new News(section, title, time, url);
+                News news = new News(section, title, time, url, author);
 
-                // Add the new {@link News} to the list of earthquakes.
+                // Add the new {@link News} to the list of newses.
                 newses.add(news);
             }
 
@@ -120,10 +123,10 @@ public final class QueryUtils {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+            Log.e("QueryUtils", "Problem parsing the newses JSON results", e);
         }
 
-        // Return the list of earthquakes
+        // Return the list of newses.
         return newses;
     }
     /**
@@ -154,8 +157,8 @@ public final class QueryUtils {
         InputStream inputStream = null;
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setReadTimeout(10000 /* milliseconds */);
-            urlConnection.setConnectTimeout(15000 /* milliseconds */);
+            urlConnection.setReadTimeout(READ_TIMEOUT /* milliseconds */);
+            urlConnection.setConnectTimeout(CONNECT_TIMEOUT /* milliseconds */);
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
@@ -168,7 +171,7 @@ public final class QueryUtils {
                 Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem retrieving the earthquake JSON results.", e);
+            Log.e(LOG_TAG, "Problem retrieving the newses JSON results.", e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();

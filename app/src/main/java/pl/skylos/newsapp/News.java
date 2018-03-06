@@ -17,6 +17,8 @@ public class News {
     private String mDate;
     // News URL
     private String mUrl;
+
+    private String mAuthor;
     /*
     * Create a new AndroidFlavor object.
     *
@@ -25,12 +27,13 @@ public class News {
     * @param vDate is date published of corresponding article.
     * @param vUrl is corresponding URL link to article.
     * */
-    public News(String title, String vSection, String vDate, String vUrl)
+    public News(String title, String vSection, String vDate, String vUrl, String vAuthor)
     {
         mWebTitle = title;
         mSection = vSection;
         mDate = vDate;
         mUrl = vUrl;
+        mAuthor = vAuthor;
     }
 
     /**
@@ -60,4 +63,6 @@ public class News {
     public String getUrl() {
         return mUrl;
     }
+
+    public String getAuthor() { return mAuthor; }
 }
